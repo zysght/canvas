@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{background:#000;}
+        #mycanvas{background:#fff;}
+    </style>
+</head>
+<body>
+<canvas id="mycanvas" width="500" height="500" stroke="red"></canvas>
+<script>
+    var C = document.getElementById('mycanvas');
+    var c = C.getContext('2d');
+    c.beginPath();
+    c.moveTo(300,300);
+    c.lineTo(300,350);
+    c.lineTo(350,350);
+    c.closePath();
+
+    c.strokeStyle = 'red';
+    c.lineWidth = 5;
+    c.fillStyle = 'blue';
+    c.fillRect(100,100,200,200);
+    c.strokeRect(100,100,200,200);
+    c.arc(200,230,35,0,Math.PI,false);
+    c.fill();
+    c.stroke();
+    c.clearRect(150,150,10,10);
+    c.clearRect(230,150,10,10);
+
+</script>
+</body>
+</html>

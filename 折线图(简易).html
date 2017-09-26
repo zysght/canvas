@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="myCanvas" width="500" height="300" style="border:1px solid #ccc"></canvas>
+<script type="text/javascript">
+    var oCanvas = document.getElementById("myCanvas");
+    var oContext = oCanvas.getContext("2d");
+
+
+    var shopping = ['15', '25', '5', '12', '8', '50', '25', '60', '5'];
+    var shoppingX = ['一月', '二月', '三月', '四月', '五月', '六月', 'qi月', '八月', '九月'];
+    var shoppingY = [0, 10, 20, 30, 40, 50];
+
+    init();
+    function init() {
+        axisX(50, 50, 50, 250);
+        axisY(50, 250, 450, 250);
+        shop(100);
+    }
+    function shop(startX) {
+        var step = 40;
+        for (var i = 0; i < shopping.length; i++) {
+            oContext.beginPath();
+            oContext.strokeStyle = "orange";
+            oContext.lineWidth = 3;
+            oContext.moveTo(startX + i * step, 200 - shopping[i]);
+            oContext.lineTo(startX + (i + 1) * step, 200 - shopping[i + 1]);
+            oContext.stroke();
+            oContext.closePath();
+
+            oContext.beginPath();
+            oContext.fillStyle = "skyblue";
+            oContext.arc(startX + i * step, 200 - shopping[i], 10, 0, 2 * Math.PI);
+            oContext.fillText(shopping[i], startX + i * step, 175 - shopping[i]);
+            oContext.fill();
+            oContext.closePath();
+
+            oContext.beginPath();
+            oContext.fillStyle = "skyblue";
+            oContext.font = "14px Microsoft yahei";
+            oContext.textAlign = "center";
+            oContext.fillText(shoppingX[i], startX + i * step, 275);
+
+            oContext.fill();
+            oContext.closePath();
+        }
+
+    }
+    function axisX(startX, startY, closeX, closeY) {
+        oContext.beginPath();
+        oContext.moveTo(startX, startY);
+        oContext.lineTo(closeX, closeY);
+        oContext.stroke();
+        oContext.closePath()
+    }
+
+    function axisY(startX, startY, closeX, closeY) {
+        var step = 40;
+        oContext.beginPath();
+        oContext.moveTo(startX, startY);
+        oContext.lineTo(closeX, closeY);
+        oContext.stroke();
+        oContext.closePath();
+
+        shoppingY.forEach(function (item, index) {
+            oContext.beginPath();
+            oContext.fillStyle = "skyblue";
+            oContext.font = "14px Microsoft yahei";
+            oContext.textAlign = "right";
+            oContext.fillText(item, startX-10, 250 - index * step);
+            oContext.fill();
+            oContext.closePath();
+        })
+    }
+</script>
+</body>
+</html>

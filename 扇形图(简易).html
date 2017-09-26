@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas 图形绘制</title>
+    <style type="text/css">
+        #myCanvas {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" height="200" width="500"></canvas>
+<script type="text/javascript">
+    var myCanvas = document.getElementById("myCanvas");
+    var oContext = myCanvas.getContext('2d');
+    render();
+    function render() {
+        var result = [
+            {
+                "name": "一事无成",
+                "color": "skyblue",
+                "percent": .3
+            }, {
+                "name": "如果这样能使你快乐",
+                "color": "gray",
+                "percent": .2
+            }, {
+                "name": "你的烂借口",
+                "color": "orange",
+                "percent": .5
+            }
+        ];
+
+        var rectStartX = 20;
+        var rectStartY = 20;
+        var rectWidth = 30;
+        var rectHeight = 18;
+        var textStartX = 55;
+        var textStartY = 35;
+        var step = 30;
+        var PI = Math.PI;
+        var start = 0;
+        var end = 0;
+        result.forEach(function (item, index) {
+            end += 2 * PI * item.percent;
+            drawnCircle(myCanvas.width / 4 * 3, myCanvas.height / 2, myCanvas.height / 4, start, end, item.color)
+            drawnRect(rectStartX, rectStartY + index * step, rectWidth, rectHeight, item.color);
+            writeText(item.name, textStartX, textStartY + index * step, item.color);
+            start = end;
+        });
+    }
+
+
+    function writeText(text, startX, startY, fillColor, font, align) {
+        oContext.beginPath();
+        oContext.font = font || "12px Microsoft yahei";
+        oContext.fillStyle = fillColor;
+        oContext.textAlign = align;
+        oContext.fillText(text, startX, startY);
+        oContext.closePath();
+    }
+    function drawnCircle(centerX, centerY, raduis, start, closure, fillColor) {
+        oContext.fillStyle = fillColor;
+        oContext.beginPath();
+        oContext.moveTo(centerX, centerY);
+        oContext.arc(centerX, centerY, raduis, start, closure);
+        oContext.fill();
+        oContext.closePath();
+    }
+    function drawnRect(startX, startY, width, height, fillColor) {
+        oContext.fillStyle = fillColor || "skyblue";
+        oContext.beginPath();
+        oContext.fillRect(startX, startY, width, height);
+        oContext.closePath();
+    }
+    function drawnLine(startX, startY, closureX, closureY, lineColor) {
+        oContext.strokeStyle = lineColor;
+        oContext.beginPath();
+        oContext.moveTo(startX, startY);
+        oContext.lineTo(closureX, closureY);
+        oContext.stroke();
+        oContext.closePath();
+    }
+
+</script>
+</body>
+</html>
